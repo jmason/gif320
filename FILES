@@ -1,0 +1,19 @@
+ CHANGES                    Revision history
+ COPYING                    Copyleft for GIF320
+ FILES                      Extract from MANIFEST
+ MANIFEST                   This shipping list
+ Makefile                   Makefile for building GIF320
+ README                     Read this first
+ README.VMS		    Notes for building on VAX/VMS
+ config.h                   Compile-time (and other) configuration options
+ develop.c                  Development and optimisation code
+ gif320.1                   Manual page for GIF320
+ gif320.h                   Macro definitions
+ gif320.txt                 Pre-formatted manpage for GIF320
+ main.c                     Most of the user interaction code
+ misc.c                     Bits and pieces that don't fit elsewhere
+ pack_macros.h              Macros for optimisation in develop.c
+ readgif.c                  Make raster from GIF file
+ vms-make.com		    A compilation script for VAX/VMS
+ vtgraph.c                  VT320-specific code
+ vtgraph.h                  VT320-specific escape sequences

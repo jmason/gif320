@@ -1,0 +1,18 @@
+Kelly Dean <dean%sol.dnet@sirius.cira.colostate.edu> has got GIF320
+running on a VAXstation running VMS; I've incorporated her changes and
+provided a vms-make.com file (based on the one in the GhostScript 2.5.2
+distribution).
+
+To build the executable, issue the command:
+
+	$ @VMS-MAKE.COM
+
+To "make clean", issue:
+
+	$ @VMS-MAKE.COM CLEAN
+
+Note that to run it, you must assign a symbol to it, as follows:
+
+GIF320 :== "$ud2:[sample.path]gif320"
+
+Hopefully this works! I've never hacked on VMS com files before ;)

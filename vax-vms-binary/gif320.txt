@@ -1,0 +1,264 @@
+
+
+
+GIF320(1)                USER COMMANDS                  GIF320(1)
+
+
+
+NAME
+     GIF320 - GIF image viewer, manipulator and output  optimiser
+     for VT-320 terminals
+
+SYNOPSIS
+     _g_i_f_3_2_0 _g_i_f_f_i_l_e ...
+
+     _g_i_f_3_2_0 -p < _g_i_f_f_i_l_e
+
+DESCRIPTION
+     _G_I_F_3_2_0 is a GIF file viewer for use on DEC VT-320 terminals.
+     It has three degrees of shading for each point: black, white
+     and a false "gray" formed by dithering black and white  pix-
+     els. The threshold values control how bright a point must be
+     to be displayed in grey or white, for half  and  full  value
+     respectively.  A  simple  colour  balance  mechanism is also
+     included  (although   output   is   monochrome).    However,
+     GIFView's  best feature is its image packer/optimiser, which
+     cuts the number of cells used to its minimum without  losing
+     picture  quality.  This  allows images to be larger than the
+     usual 16*6 96-cell display, depending on their complexity.
+
+     It has two modes: interactive and reading from a pipe.  Pipe
+     mode  (when GIF320 is invoked with a -_p on the command line)
+     simply reads the GIF file from stdin and prints  the  optim-
+     ised  image on stdout, whereas interactive mode requires the
+     input GIF file to be specified on the command line. Most  of
+     the following will be only occur in interactive mode.
+
+     When _G_I_F_3_2_0 warms up, you will see a box  with  diamonds  in
+     it,  with  headers  containing  useful information on either
+     side and a quick summary of the commands beneath it; A  pro-
+     gress meter marked "Reading" will fill up as _G_I_F_3_2_0 resolves
+     the GIF into a bitmap, then the image will be developed (see
+     "DEVELOPMENT"  for  more  information)  and displayed in the
+     diamond-filled box. Next, a prompt will appear at the bottom
+     of  the  screen, waiting for you to enter commands. Firstly,
+     here's what the headers mean:
+
+THE HEADERS
+     Filename: _f_i_l_e_n_a_m_e
+          The name of the input file.
+
+     Image: _x-_d_i_m x _y-_d_i_m x _c_o_l_o_r_s
+          The area of the overall image and the number of  colors
+          used.
+
+     Zoom: ( _l_e_f_t, _t_o_p ) / ( _r_i_g_h_t, _b_o_t_t_o_m )
+          The area of the overall image displayed.
+
+     Balance (R/G/B): _r_e_d / _g_r_e_e_n / _b_l_u_e
+          The percentages of each RGB input used to  compose  the
+
+
+
+Version 3.2          Last change: Nov 8 1992                    1
+
+
+
+
+
+
+GIF320(1)                USER COMMANDS                  GIF320(1)
+
+
+
+          monochrome displayed image, eg. a reading of "40 / 50 /
+          10" means that 40% of the red input, 50% of  the  green
+          and  10% of the blue is used to determine the intensity
+          of each pixel.
+
+     Thresholds (F/H): _f_u_l_l / _h_a_l_f
+          The threshold points at which a pixel is to be  plotted
+          at full (ie. on) or half (ie. dithering) intensity. The
+          values vary from 0 to 100, and the lower they are,  the
+          brighter the image is likely to be.
+
+     Output X:Y ratio: _r_a_t_i_o
+          A real number representing the X:Y ratio of  the  sides
+          of  the  optimised image; a ratio of 2.0 means that the
+          optimised image will be twice as wide as it is high.
+
+     Approx optimise: _x-_c_e_l_l_s x _y-_c_e_l_l_s
+          The estimated size to which the image will optimise, in
+          cells, based on the number of cells used and the ratio.
+
+     Cells used: _n_u_m_b_e_r / 96 ( _p_c %)
+          The cells used by the display; the lower this  is,  the
+          larger  the  image  will optimise to. There are only 96
+          definable cells (on a VT-320, at least).
+
+COMMANDS
+     Commands are represented here as full words, but are identi-
+     fied  by the case-insensitive first character on the command
+     line only, and parsed word-by-word.
+
+     Thresholds _f_u_l_l _h_a_l_f
+          Set the threshold values. The two integer  values  must
+          be between 0 and 100, with 0 being bright and 100 being
+          dark.
+
+     Balance _r_e_d _g_r_e_e_n _b_l_u_e
+          These range from 0 to 100, must total 100, and  control
+          how  much  of  each  colour  is  used  to determine the
+          output's brightness. A value of 0 means that the colour
+          is ignored for the purposes of determining the output's
+          brightness, and 100 means that the colour is  the  only
+          one taken into account.
+
+     Ratio _r_a_t_i_o
+          A real number representing the X:Y ratio of  the  sides
+          of  the  optimised image; a ratio of 2.0 means that the
+          optimised image will be approximately twice as wide  as
+          it is high.
+
+     Zoom-in / Xoom-out [ _p_r_e_c_i_s_i_o_n ]
+          "Zoom in" on, or "Xoom out" from, the image.  _p_r_e_c_i_s_i_o_n
+          defaults  to  10,  and  is  the percentage of the image
+
+
+
+Version 3.2          Last change: Nov 8 1992                    2
+
+
+
+
+
+
+GIF320(1)                USER COMMANDS                  GIF320(1)
+
+
+
+          width/height by which you zoom.
+
+     Full-unzoom
+          Unzoom fully from the image.
+
+     H / J / K / L [ _p_r_e_c_i_s_i_o_n ]
+          Pan left, down, up, or right on the  image.   _p_r_e_c_i_s_i_o_n
+          is measured as when zooming.
+
+     Optimise [ _c_e_l_l_s-_x _c_e_l_l_s-_y ]
+          Applies the optimiser to the image at the current  set-
+          tings.   The  optimiser  will try to make the displayed
+          image as large as possible  without  losing  any  image
+          quality, and will try to make the image's sides conform
+          to approximately the output X:Y ratio set by the  user.
+          If the two arguments, _c_e_l_l_s-_x and _c_e_l_l_s-_y are provided,
+          GIF320 will try these values as  the  maximum  possible
+          size  for the image and optimise from there; otherwise,
+          GIF320 will use the maximum size of image that will fit
+          on-screen  and  conforms  to  the output X:Y ratio. See
+          "OPTIMISATION"  for  more  information  on  how  GIF320
+          optimises.
+
+     Save _f_i_l_e_n_a_m_e
+          Output the last developed  image  (including  optimised
+          output)  to  _f_i_l_e_n_a_m_e  _c_a_t  or  _t_y_p_e  or  whatever  the
+          appropriate display utility is, and  will  display  the
+          image shown.  This will accept tilde-globbing if you're
+          on a UNIX system (ie. the use of '~' to represent  your
+          home  directory).   Note  that, since SIXEL uses only 7
+          bits to carry its  image  data,  the  pictures  can  be
+          transferred as 7-bit data, FTP'd as text, etc.
+
+     Double _f_i_l_e_n_a_m_e
+          The same as Save, except the output will be  twice  the
+          size,   using  double-width  and  double-height  escape
+          sequences.  This looks quite impressive.
+
+     ?
+          Some  program  information  -  just  the  version,  the
+          patchlevel, the author and a "bugs-to" address.
+
+     (return)
+          Redevelop the sketch.  If  nothing  has  been  changed,
+          nothing will happen.
+
+     Quit
+          Exits _G_I_F_3_2_0 without any further ado.
+
+DEVELOPMENT
+     As the image is developed, two progress  meters,  "Progress"
+     and  "Cells", will race.  If the top one wins, so do you. If
+
+
+
+Version 3.2          Last change: Nov 8 1992                    3
+
+
+
+
+
+
+GIF320(1)                USER COMMANDS                  GIF320(1)
+
+
+
+     the bottom one wins,  you've  lost.   On  a  more  technical
+     level,  "Progress" represents the amount of image developed,
+     and "Cells" represents the amount of character cells defined
+     so  far.  If  "Cells"  fills  up, all of the cells have been
+     defined, and if "Progress" fills  up,  the  image  is  fully
+     developed.   You  want  "Progress" to fill up before "Cells"
+     does; it's as simple as that. ;-)
+
+OPTIMISATION
+     The optimiser applies a binary search to  find  the  optimum
+     value  for  image  size,  where  the image is at its largest
+     while still fitting its cell definitions  into  the  96-cell
+     limit.   It  does this by repeatedly developing the image at
+     different sizes, from the 96-cell size which, by definition,
+     works,  to  as large as possible, which is almost completely
+     unlikely to work.  Every iteration, it tries halfway between
+     the  smallest  and  the  largest.   If  this  works, halfway
+     becomes the new smallest, as the optimum must be  larger  or
+     equal  to this. If it doesn't, halfway becomes the new larg-
+     est, as the optimum must be smaller than this. This goes  on
+     until  the difference between smallest and largest is imper-
+     ceptible.
+
+BUGS
+     This is a beta test edition. Send any bug reports, fixes, or
+     suggestions to me (doctorgonzo <jm@maths.tcd.ie>).
+
+AVAILABILITY
+     _G_I_F_V_i_e_w is free; anyone may redistribute  copies  of  it  to
+     anyone under the terms stated in the Copyright notice.
+
+AUTHORS
+     The original GIFtoPS Converter was written in May  16,  1988
+     by  Scott Hemphill.  GIFView 1.0 (6 December 1989) was writ-
+     ten by Gregory Reid <gar@catt.ncsu.edu>, and was a  modified
+     version of the above which used the VT-320 SIXEL graphics to
+     display rather than PostScript.
+
+     GIFView 2.0 (23 January 1991)  was  written  by  doctorgonzo
+     <jm@maths.tcd.ie>,  and  was  basically GIFView 1.0 with the
+     optimiser, RGB & threshold setting, and a basic  interactive
+     interface.  Ever since then, it's been getting more and more
+     bells and whistles.
+
+     Thanks to Marc-Michael Brandis <brandis@inf.ethz.ch> for the
+     msqrt() routine. It's compact and I don't need it to be par-
+     ticularly fast, so it fits my criteria perfectly.
+
+
+
+
+
+
+
+
+Version 3.2          Last change: Nov 8 1992                    4
+
+
+

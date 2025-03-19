@@ -1,0 +1,312 @@
+.TH GIF320 1 "Nov 8 1992" "Version 3.2"
+.UC 4
+.SH NAME
+GIF320 \- GIF image viewer, manipulator and output optimiser
+for VT-320 terminals
+.SH SYNOPSIS
+.I gif320
+.I giffile ...
+.PP
+.I gif320
+\-p <
+.I giffile
+.SH DESCRIPTION
+.I GIF320
+is a GIF file viewer for use on DEC VT-320 terminals.
+It has three degrees of shading for each point:
+black, white and a false "gray" formed by dithering black and
+white pixels. The threshold values control how
+bright a point must be to be displayed in grey or white,
+for half and full value respectively. A simple colour balance
+mechanism is also included (although output is monochrome).
+However, GIFView's best feature is its image
+packer/optimiser, which cuts the
+number of cells used to its minimum
+without losing picture quality. This allows images to be larger than
+the usual 16*6 96-cell display, depending on their complexity.
+.PP
+It has two modes: interactive and reading from a pipe. Pipe mode
+(when
+GIF320 is invoked with a
+.I \-p
+on the command line\)
+simply reads the GIF file from stdin and prints the optimised
+image on stdout, whereas interactive mode requires
+the input GIF file to be specified on the
+command line. Most of the following will be only occur in
+interactive mode.
+.PP
+When
+.I GIF320
+warms up, you will see a box with diamonds in it, with
+headers containing useful information on
+either side and a quick summary of the
+commands beneath it; A progress meter marked "Reading" will fill
+up as
+.I GIF320
+resolves the GIF into a bitmap, then the image will be developed
+(see "DEVELOPMENT" for more information)
+and displayed in the diamond-filled box. Next, a prompt will
+appear at the bottom of the screen, waiting for you to enter
+commands. Firstly, here's what the headers mean:
+.PP
+.SH "THE HEADERS"
+.PP
+.PP
+Filename: 
+.I filename
+.RS .5i
+The name of the input file.
+.RE
+.PP
+Image: 
+.I x-dim
+x
+.I y-dim
+x
+.I colors
+.RS .5i
+The area of the overall image and the number of colors used.
+.RE
+.PP
+Zoom: (
+.I left, top
+) / (
+.I right, bottom
+)
+.RS .5i
+The area of the overall image displayed.
+.RE
+.PP
+Balance (R/G/B): 
+.I red
+/
+.I green
+/
+.I blue
+.RS .5i
+The percentages of each RGB input used to compose the monochrome
+displayed image, eg. a reading of "40 / 50 / 10" means that
+40% of the red input, 50% of the green and 10% of the blue is
+used to determine the intensity of each pixel.
+.RE
+.PP
+Thresholds (F/H): 
+.I full
+/
+.I half
+.RS .5i
+The threshold points at which a pixel is to be plotted
+at full (ie. on) or half (ie. dithering) intensity. The values
+vary from 0 to 100, and the lower they are, the brighter the
+image is likely to be.
+.RE
+.PP
+Output X:Y ratio: 
+.I ratio
+.RS .5i
+A real number representing the X:Y ratio of the sides of
+the optimised image; a ratio of 2.0 means that the optimised image will
+be twice as wide as it is high.
+.RE
+.PP
+Approx optimise: 
+.I x-cells
+x
+.I y-cells
+.RS .5i
+The estimated size to which the image will optimise, in cells, based
+on the number of cells used and the ratio.
+.RE
+.PP
+Cells used: 
+.I number
+/ 96 (
+.I pc
+%)
+.RS .5i
+The cells used by the display; the lower this is, the larger the image
+will optimise to. There are only 96 definable cells (on a VT-320, at least).
+.RE
+.PP
+.SH "COMMANDS"
+.PP
+.PP
+Commands are represented here as full words, but are identified by the
+case-insensitive first character on the command line only,
+and parsed word-by-word.
+.PP
+Thresholds
+.I full half
+.RS .5i
+Set the threshold values. The two integer values
+must be between 0 and 100, with 0 being bright and
+100 being dark.
+.RE
+.PP
+Balance
+.I red green blue
+.RS .5i
+These range from 0 to 100, must total 100, and control how
+much of each colour is used to determine
+the output's brightness. A value of 0 means that the colour is
+ignored for the purposes of determining the output's brightness,
+and 100 means that the colour is the only one taken into account.
+.RE
+.PP
+Ratio
+.I ratio
+.RS .5i
+A real number representing the X:Y ratio of the sides of
+the optimised image; a ratio of 2.0 means that the optimised image will
+be approximately twice as wide as it is high.
+.RE
+.PP
+Zoom-in / Xoom-out [
+.I precision
+]
+.RS .5i
+"Zoom in" on, or "Xoom out" from, the image.
+.I precision
+defaults to 10, and is the percentage of the image width/height by which
+you zoom.
+.RE
+.PP
+Full-unzoom
+.RS .5i
+Unzoom fully from the image.
+.RE
+.PP
+H / J / K / L [
+.I precision
+]
+.RS .5i
+Pan left, down, up, or right on the image.
+.I precision
+is measured as when zooming.
+.RE
+.PP
+Optimise [
+.I cells-x cells-y
+]
+.RS .5i
+Applies the optimiser to the image at the current settings.
+The optimiser will try to make the displayed image as large 
+as possible without losing any image quality, and will
+try to make the image's sides conform to 
+approximately the output X:Y ratio set by the user.
+If the two
+arguments,
+.I cells-x
+and
+.I cells-y
+are provided, GIF320 will try these values as the maximum possible
+size for the image and optimise from there; otherwise, GIF320 will
+use the maximum size of image that will fit on-screen and
+conforms to the output X:Y ratio. See "OPTIMISATION" for more
+information on how GIF320 optimises.
+.RE
+.PP
+Save
+.I filename
+.RS .5i
+Output the last developed image (including optimised output)
+to 
+.I filename
+\. This output can be displayed using
+.I cat
+or
+.I type
+or whatever the appropriate display utility is, and
+will display the image shown.
+This will accept tilde-globbing if you're on a UNIX
+system (ie. the use of '~' to represent your home directory).
+Note that, since SIXEL uses only 7 bits to carry its image
+data, the pictures can be transferred as 7-bit data,
+FTP'd as text, etc.
+.RE
+.PP
+Double
+.I filename
+.RS .5i
+The same as Save, except the output will be twice the
+size, using double-width and double-height escape sequences.
+This looks quite impressive.
+.RE
+.PP
+?
+.RS .5i
+Some program information - just the version, the patchlevel,
+the author and a "bugs-to" address.
+.RE
+.PP
+(return)
+.RS .5i
+Redevelop the sketch. If nothing has been changed,
+nothing will happen.
+.RE
+.PP
+Quit
+.RS .5i
+Exits
+.I GIF320
+without any further ado.
+.RE
+.RE
+.PP
+.SH "DEVELOPMENT"
+.PP
+As the image is developed, two progress meters, "Progress" and
+"Cells", will race.
+If the top one wins, so do you. If the bottom one wins, you've lost.
+On a more technical level, "Progress" represents the amount of image
+developed, and "Cells" represents the amount of character cells
+defined so far. If "Cells" fills up, all of the cells have been
+defined, and if "Progress" fills up, the image is fully developed.
+You want "Progress" to fill up before "Cells" does; it's as simple
+as that. ;-)
+.PP
+.SH "OPTIMISATION"
+.PP
+The optimiser applies a binary search to find the optimum value
+for image size, where the image is at its largest while still
+fitting its cell definitions into the 96-cell limit.
+It does this by repeatedly developing the image at different sizes,
+from the 96-cell size which, by definition, works, to as large
+as possible, which is almost completely unlikely to work.
+Every iteration, it tries halfway between the smallest and the largest.
+If this works, halfway becomes the new smallest, as the optimum must be
+larger or equal to this. If it doesn't, halfway becomes the new largest,
+as the optimum must be smaller than this. This goes on until
+the difference between smallest and largest is imperceptible.
+.PP
+.SH BUGS
+.PP
+This is a beta test edition. Send any bug reports,
+fixes, or suggestions to me (doctorgonzo <jm@maths.tcd.ie>).
+.PP
+.SH AVAILABILITY
+.PP
+.I GIFView
+is free; anyone may redistribute copies of it to
+anyone under the terms stated in the 
+Copyright notice.
+.PP
+.SH AUTHORS
+.PP
+The original GIFtoPS Converter was written
+in May 16, 1988 by Scott Hemphill.
+GIFView 1.0 (6 December 1989) was written by Gregory Reid
+<gar@catt.ncsu.edu>, and
+was a modified version of the above which used the VT-320 SIXEL
+graphics to display rather than PostScript.
+.PP
+GIFView 2.0 (23 January 1991) was written
+by doctorgonzo <jm@maths.tcd.ie>,
+and was basically GIFView 1.0 with the optimiser, RGB & threshold
+setting, and a basic interactive interface. Ever since then,
+it's been getting more and more bells and whistles.
+.PP
+Thanks to Marc-Michael Brandis <brandis@inf.ethz.ch> for the msqrt()
+routine. It's compact and I don't need it to be
+particularly fast, so it fits my criteria perfectly.

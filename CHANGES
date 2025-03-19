@@ -1,0 +1,32 @@
+Revision history: 
+    doctorgonzo is	<jm@maths.tcd.ie>
+    Greg Reid is	<gar@catt.ncsu.edu>
+    Scott Hemphill is 	??
+
+GIF320 v3.3	Sun Jan 24 1993 doctorgonzo	Fixed the VMS make script.
+
+GIF320 v3.2	30 October 1992	doctorgonzo	Added what is (hopefully)
+						VMS support, allowed bad
+						GIFs to be viewed (as best
+						they can).
+
+GIF320 v3.1	2 August 1992	doctorgonzo	Fixed a problem caused by RCS
+						ident strings.
+
+GIF320 v3.0	Tue Jun 23 1992	doctorgonzo	Made the interface more
+						screen-oriented and added
+						the zoom-and-warp abilities.
+
+GIFView v2.1	5 December 1991	doctorgonzo	Optimisation estimator added.
+						Pipe ability added.
+
+GIFView v2.0	Tue Jun 23 1991	doctorgonzo	Added optimisation, RGB &
+						output value threshold
+						modification, line-oriented
+						interaction.
+
+GIFView v1.0	6 December 1989	Gregory Reid	Modified GIFtoPS to use vt320
+						SIXEL graphics rather than
+						output PostScript.
+
+GIFtoPS		May 16 1988	Scott Hemphill	original GIF-reading code.

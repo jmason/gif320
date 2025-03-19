@@ -1,0 +1,21 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ CHANGES                    1	Revision history
+ COPYING                    1	Copyleft for GIF320
+ FILES                      1	Extract from MANIFEST
+ MANIFEST                   1	This shipping list
+ Makefile                   1	Makefile for building GIF320
+ README                     1	Read this first
+ README.VMS		    ?   Notes for building on VAX/VMS
+ config.h                   1	Compile-time (and other) configuration options
+ develop.c                  2	Development and optimisation code
+ gif320.1                   1	Manual page for GIF320
+ gif320.h                   1	Macro definitions
+ gif320.txt                 1	Pre-formatted manpage for GIF320
+ main.c                     2	Most of the user interaction code
+ misc.c                     1	Bits and pieces that don't fit elsewhere
+ pack_macros.h              1	Macros for optimisation in develop.c
+ readgif.c                  1	Make raster from GIF file
+ vms-make.com		    ?   A compilation script for VAX/VMS
+ vtgraph.c                  1	VT320-specific code
+ vtgraph.h                  1	VT320-specific escape sequences
