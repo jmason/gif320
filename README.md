@@ -32,7 +32,7 @@ VMS-MAKE.COM is provided; see README.VMS for more information.
 
 See config.h for configuration options.
 
--- doctorgonzo <jm@maths.tcd.ie>
+- doctorgonzo <jm@maths.tcd.ie>
 ------------------------------------------------------------------------
 
 Architectures GIF320 has compiled successfully (and worked ;) on:
