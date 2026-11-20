@@ -9,6 +9,9 @@ Apparently this ancient code still compiles on a modern Ubuntu.
 
 The original README, from 33 years previously, is below.
 
+Amazingly, James Holderness has ported this code to run on a VT420;
+that work can be found here: https://github.com/j4james/gif420 . Very cool!
+
 ------------------------------------------------------------------------
 
 GIF320 3.0 is a gif file viewer for use with VT-320 terminals. It
